@@ -1,4 +1,4 @@
-# TechConnect - Plataforma de Intermediação de Programadores
+# TechBridge - Plataforma de Intermediação de Programadores
 
 Um website sofisticado e moderno para uma empresa que busca intermediar a relação entre empresas e programadores de qualidade.
 
