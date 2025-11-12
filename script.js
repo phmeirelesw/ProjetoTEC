@@ -1,3 +1,71 @@
+// ========== HELPER FUNCTIONS (GLOBAL SCOPE) ==========
+function showNotification(message, type = 'info') {
+    const notification = document.getElementById('notification');
+    notification.textContent = message;
+    notification.className = 'notification show';
+
+    if (type === 'success') {
+        notification.style.background = 'linear-gradient(135deg, #00b359, #00e699)';
+    } else if (type === 'error') {
+        notification.style.background = 'linear-gradient(135deg, #ff4444, #ff6666)';
+    } else {
+        notification.style.background = 'linear-gradient(135deg, #0066ff, #1e90ff)';
+    }
+
+    setTimeout(() => {
+        notification.classList.remove('show');
+    }, 3000);
+}
+
+function highlightField(field) {
+    field.style.borderColor = '#ff4444';
+    field.style.boxShadow = '0 0 10px rgba(255, 68, 68, 0.3)';
+}
+
+function removeHighlight(field) {
+    field.style.borderColor = '';
+    field.style.boxShadow = '';
+}
+
+async function buscarCNPJ() {
+    const cnpjInput = document.getElementById('empresaCNPJ');
+    
+    const cnpjLimpo = cnpjInput.value.replace(/[\.\-\/]/g, '');
+
+    if (cnpjLimpo.length !== 14) {
+        showNotification('CNPJ inválido. Digite 14 números.', 'error');
+        highlightField(cnpjInput);
+        return;
+    }
+
+    showNotification('Buscando dados do CNPJ...', 'info');
+
+    try {
+        const response = await fetch(`https://brasilapi.com.br/api/cnpj/v1/${cnpjLimpo}`);
+
+        if (!response.ok) {
+            throw new Error('CNPJ não encontrado ou inválido.');
+        }
+
+        const data = await response.json();
+
+        if (document.getElementById('empresaNome')) {
+            document.getElementById('empresaNome').value = data.razao_social;
+        }
+
+        showNotification('Empresa encontrada e dados preenchidos!', 'success');
+        removeHighlight(cnpjInput);
+        if (document.getElementById('empresaNome')) {
+            removeHighlight(document.getElementById('empresaNome'));
+        }
+
+    } catch (error) {
+        console.error('Erro ao buscar CNPJ:', error);
+        showNotification(error.message, 'error');
+        highlightField(cnpjInput);
+    }
+}
+
 // ========== SMOOTH SCROLL & NAVBAR INTERACTION ==========
 document.addEventListener('DOMContentLoaded', () => {
     const hamburger = document.getElementById('hamburger');
@@ -69,15 +137,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ========== FORM VALIDATION & SUBMISSION ==========
-    setupFormHandlers();
-
-    function setupFormHandlers() {
+   function setupFormHandlers() {
         // Empresa Form
         const formEmpresa = document.getElementById('formEmpresa');
         if (formEmpresa) {
             formEmpresa.addEventListener('submit', handleFormSubmit);
-        }
 
+            // Adiciona o "ouvinte" de clique no botão de busca
+            const btnBuscarCNPJ = document.getElementById('btnBuscarCNPJ');
+            if (btnBuscarCNPJ) {
+                btnBuscarCNPJ.addEventListener('click', (e) => {
+                    e.preventDefault(); // Impede o formulário de enviar
+                    buscarCNPJ();       // Chama a função da API
+                });
+            }
+        }
         // Dev Form
         const formDev = document.getElementById('formDev');
         if (formDev) {
@@ -90,7 +164,6 @@ document.addEventListener('DOMContentLoaded', () => {
             formContato.addEventListener('submit', handleFormSubmit);
         }
     }
-
     function handleFormSubmit(e) {
         e.preventDefault();
 
@@ -149,36 +222,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         return isValid;
-    }
-
-    function highlightField(field) {
-        field.style.borderColor = '#ff4444';
-        field.style.boxShadow = '0 0 10px rgba(255, 68, 68, 0.3)';
-    }
-
-    function removeHighlight(field) {
-        field.style.borderColor = '';
-        field.style.boxShadow = '';
-    }
-
-    // ========== NOTIFICATION SYSTEM ==========
-    function showNotification(message, type = 'info') {
-        const notification = document.getElementById('notification');
-        notification.textContent = message;
-        notification.className = 'notification show';
-
-        // Add type-specific styling
-        if (type === 'success') {
-            notification.style.background = 'linear-gradient(135deg, #00b359, #00e699)';
-        } else if (type === 'error') {
-            notification.style.background = 'linear-gradient(135deg, #ff4444, #ff6666)';
-        } else {
-            notification.style.background = 'linear-gradient(135deg, #0066ff, #1e90ff)';
-        }
-
-        setTimeout(() => {
-            notification.classList.remove('show');
-        }, 3000);
     }
 
     // ========== PARALLAX EFFECT ==========
@@ -420,24 +463,4 @@ document.addEventListener('DOMContentLoaded', () => {
 function trackEvent(eventName, eventData = {}) {
     console.log(`Event: ${eventName}`, eventData);
     // You can integrate with Google Analytics or other services here
-}
-
-// ========== API INTEGRATION EXAMPLE ==========
-async function IngestaoCNPJ(form) {
-    try {
-        const formData = new FormData(form);
-        const response = await fetch('https://api.opencnpj.org/{CNPJ}', {
-            method: 'GET',
-            body: formData
-        });
-
-        if (response.ok) {
-            showNotification('Dados carregados com sucesso!', 'success');
-        } else {
-            showNotification('Erro ao carregar dados. Tente novamente.', 'error');
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        showNotification('Erro de conexão. Tente novamente.', 'error');
-    }
 }
