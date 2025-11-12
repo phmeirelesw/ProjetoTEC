@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ========== FORM VALIDATION & SUBMISSION ==========
-   function setupFormHandlers() {
+    function setupFormHandlers() {
         // Empresa Form
         const formEmpresa = document.getElementById('formEmpresa');
         if (formEmpresa) {
@@ -455,6 +455,9 @@ document.addEventListener('DOMContentLoaded', () => {
             e.target.dispatchEvent(new Event('submit'));
         }
     });
+
+    // ========== CHAMAR SETUP DE FORMULÁRIOS ==========
+    setupFormHandlers();
 
     console.log('TechConnect - Site carregado com sucesso! 🚀');
 });
