@@ -1,4 +1,6 @@
 // ========== HELPER FUNCTIONS (GLOBAL SCOPE) ==========
+let cnpjValidado = false; // Flag para controlar validação
+
 function showNotification(message, type = 'info') {
     const notification = document.getElementById('notification');
     notification.textContent = message;
@@ -35,6 +37,7 @@ async function buscarCNPJ() {
     if (cnpjLimpo.length !== 14) {
         showNotification('CNPJ inválido. Digite 14 números.', 'error');
         highlightField(cnpjInput);
+        cnpjValidado = false;
         return;
     }
 
@@ -59,10 +62,14 @@ async function buscarCNPJ() {
             removeHighlight(document.getElementById('empresaNome'));
         }
 
+        // ✅ MARCA COMO VALIDADO
+        cnpjValidado = true;
+
     } catch (error) {
         console.error('Erro ao buscar CNPJ:', error);
         showNotification(error.message, 'error');
         highlightField(cnpjInput);
+        cnpjValidado = false;
     }
 }
 
@@ -147,8 +154,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const btnBuscarCNPJ = document.getElementById('btnBuscarCNPJ');
             if (btnBuscarCNPJ) {
                 btnBuscarCNPJ.addEventListener('click', (e) => {
-                    e.preventDefault(); // Impede o formulário de enviar
-                    buscarCNPJ();       // Chama a função da API
+                    e.preventDefault();
+                    buscarCNPJ();
                 });
             }
         }
@@ -164,8 +171,17 @@ document.addEventListener('DOMContentLoaded', () => {
             formContato.addEventListener('submit', handleFormSubmit);
         }
     }
+
     function handleFormSubmit(e) {
         e.preventDefault();
+
+        const formEmpresa = document.getElementById('formEmpresa');
+        
+        // ✅ VERIFICA SE É O FORMULÁRIO DE EMPRESA E SE O CNPJ FOI VALIDADO
+        if (this === formEmpresa && !cnpjValidado) {
+            showNotification('⚠️ Por favor, valide o CNPJ antes de enviar!', 'error');
+            return;
+        }
 
         // Validate form
         const formData = new FormData(this);
@@ -177,6 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Reset form
             this.reset();
+            cnpjValidado = false; // Reseta a validação após envio
 
             // Simulate sending data (in production, this would be an API call)
             console.log('Form Data:', Object.fromEntries(formData));
