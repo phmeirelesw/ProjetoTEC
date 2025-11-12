@@ -866,3 +866,28 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--accent-blue-light);
 }
+
+/*Style API*/
+/* Estilo para o grupo CNPJ + Botão */
+.input-group {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.input-group input {
+    flex-grow: 1; /* Faz o input ocupar o espaço */
+}
+
+.btn-icon {
+    padding: 0 1rem;
+    border: 2px solid var(--accent-blue);
+    background: transparent;
+    color: var(--accent-blue);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-icon:hover {
+    background: rgba(0, 102, 255, 0.1);
+}
