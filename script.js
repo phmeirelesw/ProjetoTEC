@@ -423,18 +423,18 @@ function trackEvent(eventName, eventData = {}) {
 }
 
 // ========== API INTEGRATION EXAMPLE ==========
-async function sendFormData(form) {
+async function IngestaoCNPJ(form) {
     try {
         const formData = new FormData(form);
-        const response = await fetch('/api/submit-form', {
-            method: 'POST',
+        const response = await fetch('https://api.opencnpj.org/{CNPJ}', {
+            method: 'GET',
             body: formData
         });
 
         if (response.ok) {
-            showNotification('Dados enviados com sucesso!', 'success');
+            showNotification('Dados carregados com sucesso!', 'success');
         } else {
-            showNotification('Erro ao enviar dados. Tente novamente.', 'error');
+            showNotification('Erro ao carregar dados. Tente novamente.', 'error');
         }
     } catch (error) {
         console.error('Error:', error);
