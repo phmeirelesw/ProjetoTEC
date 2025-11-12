@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechConnect - Plataforma de Contratação de Programadores</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navegação -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-brand">
+                <i class="fas fa-code"></i> TechConnect
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <a href="#home" class="nav-link">Início</a>
+                <a href="#servicos" class="nav-link">Serviços</a>
+                <a href="#para-empresas" class="nav-link">Para Empresas</a>
+                <a href="#para-devs" class="nav-link">Para Desenvolvedores</a>
+                <a href="#contato" class="nav-link">Contato</a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="stars"></div>
+        <div class="hero-content">
+            <div class="container">
+                <h1 class="hero-title">Conecte Talento com Oportunidade</h1>
+                <p class="hero-subtitle">Intermediando as melhores relações entre empresas e programadores de elite</p>
+                <div class="hero-buttons">
+                    <a href="#para-empresas" class="btn btn-primary">Procuro Programadores</a>
+                    <a href="#para-devs" class="btn btn-secondary">Sou Programador</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sobre -->
+    <section id="sobre" class="sobre">
+        <div class="container">
+            <div class="section-title">
+                <h2>Por que TechConnect?</h2>
+                <p>Conectamos empresas com os melhores talentos em desenvolvimento de software</p>
+            </div>
+            <div class="cards-grid">
+                <div class="card-feature">
+                    <div class="card-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Talento Verificado</h3>
+                    <p>Todos os programadores passam por rigorosa análise técnica e behavioral</p>
+                </div>
+                <div class="card-feature">
+                    <div class="card-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Contratação Rápida</h3>
+                    <p>Encontre o profissional certo em poucos dias, não meses</p>
+                </div>
+                <div class="card-feature">
+                    <div class="card-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Segurança Total</h3>
+                    <p>Contratos blindados e suporte total durante todo o processo</p>
+                </div>
+                <div class="card-feature">
+                    <div class="card-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Crescimento Garantido</h3>
+                    <p>Parcerias duradouras que resultam em código de qualidade superior</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Serviços -->
+    <section id="servicos" class="servicos">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nossos Serviços</h2>
+                <p>Soluções completas para suas necessidades de desenvolvimento</p>
+            </div>
+            <div class="servicos-grid">
+                <div class="servico-card">
+                    <div class="servico-header">
+                        <i class="fas fa-mobile-alt"></i>
+                        <h3>Desenvolvimento Mobile</h3>
+                    </div>
+                    <p>Especialistas em iOS, Android e desenvolvimento multiplataforma com React Native e Flutter</p>
+                    <ul class="tech-list">
+                        <li>React Native</li>
+                        <li>Flutter</li>
+                        <li>Swift</li>
+                        <li>Kotlin</li>
+                    </ul>
+                </div>
+                <div class="servico-card">
+                    <div class="servico-header">
+                        <i class="fas fa-globe"></i>
+                        <h3>Web Development</h3>
+                    </div>
+                    <p>Desenvolvedores full-stack criando aplicações web modernas e escaláveis</p>
+                    <ul class="tech-list">
+                        <li>React</li>
+                        <li>Angular</li>
+                        <li>Vue.js</li>
+                        <li>Node.js</li>
+                    </ul>
+                </div>
+                <div class="servico-card">
+                    <div class="servico-header">
+                        <i class="fas fa-database"></i>
+                        <h3>Backend & DevOps</h3>
+                    </div>
+                    <p>Arquitetura de sistemas robustos, bancos de dados e infraestrutura cloud</p>
+                    <ul class="tech-list">
+                        <li>Python</li>
+                        <li>Java</li>
+                        <li>AWS</li>
+                        <li>Docker</li>
+                    </ul>
+                </div>
+                <div class="servico-card">
+                    <div class="servico-header">
+                        <i class="fas fa-robot"></i>
+                        <h3>AI & Machine Learning</h3>
+                    </div>
+                    <p>Especialistas em IA, machine learning e processamento de dados em larga escala</p>
+                    <ul class="tech-list">
+                        <li>Python</li>
+                        <li>TensorFlow</li>
+                        <li>PyTorch</li>
+                        <li>Data Science</li>
+                    </ul>
+                </div>
+                <div class="servico-card">
+                    <div class="servico-header">
+                        <i class="fas fa-test"></i>
+                        <h3>QA & Testing</h3>
+                    </div>
+                    <p>Garantia de qualidade com testes automatizados e manuais de alto padrão</p>
+                    <ul class="tech-list">
+                        <li>Selenium</li>
+                        <li>Jest</li>
+                        <li>Cypress</li>
+                        <li>JUnit</li>
+                    </ul>
+                </div>
+                <div class="servico-card">
+                    <div class="servico-header">
+                        <i class="fas fa-pencil-ruler"></i>
+                        <h3>UI/UX Design</h3>
+                    </div>
+                    <p>Designers criando interfaces belas e intuitivas que convertem usuários</p>
+                    <ul class="tech-list">
+                        <li>Figma</li>
+                        <li>UX Research</li>
+                        <li>Prototyping</li>
+                        <li>Design Systems</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Para Empresas -->
+    <section id="para-empresas" class="para-empresas">
+        <div class="container">
+            <div class="section-title">
+                <h2>Para Empresas</h2>
+                <p>Encontre o talento perfeito para seu projeto</p>
+            </div>
+            <div class="para-empresas-content">
+                <div class="empresa-form">
+                    <h3>Comece Agora</h3>
+                    <form id="formEmpresa">
+                        <div class="form-group">
+                            <label for="empresaNome">Nome da Empresa</label>
+                            <input type="text" id="empresaNome" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="empresaEmail">Email Corporativo</label>
+                            <input type="email" id="empresaEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="empresaTipo">Tipo de Desenvolvedor Procurado</label>
+                            <select id="empresaTipo" required>
+                                <option value="">Selecione uma opção</option>
+                                <option value="frontend">Frontend Developer</option>
+                                <option value="backend">Backend Developer</option>
+                                <option value="fullstack">Full Stack Developer</option>
+                                <option value="mobile">Mobile Developer</option>
+                                <option value="devops">DevOps Engineer</option>
+                                <option value="ml">ML Engineer</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="empresaDescricao">Descrição do Projeto</label>
+                            <textarea id="empresaDescricao" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Solicitar Candidatos</button>
+                    </form>
+                </div>
+                <div class="empresa-benefits">
+                    <h3>Benefícios de Contratar Conosco</h3>
+                    <div class="benefits-list">
+                        <div class="benefit-item">
+                            <div class="benefit-number">1</div>
+                            <div>
+                                <h4>Pré-seleção Rigorosa</h4>
+                                <p>Apenas os melhores 5% dos candidatos passam pelo nosso processo</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-number">2</div>
+                            <div>
+                                <h4>Matching Perfeito</h4>
+                                <p>Algoritmo inteligente encontra profissionais com o perfil exato</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-number">3</div>
+                            <div>
+                                <h4>Suporte Dedicado</h4>
+                                <p>Account manager exclusivo durante toda a duração da contratação</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-number">4</div>
+                            <div>
+                                <h4>Garantia de Satisfação</h4>
+                                <p>Se não ficar satisfeito, substituímos por outro candidato</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Para Desenvolvedores -->
+    <section id="para-devs" class="para-devs">
+        <div class="container">
+            <div class="section-title">
+                <h2>Para Desenvolvedores</h2>
+                <p>Encontre oportunidades de carreira que valem a pena</p>
+            </div>
+            <div class="para-devs-content">
+                <div class="devs-benefits">
+                    <h3>Por que se juntar?</h3>
+                    <div class="benefits-list">
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                            <div>
+                                <h4>Salários Competitivos</h4>
+                                <p>Remuneração acima da média do mercado para profissionais qualificados</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <i class="fas fa-suitcase"></i>
+                            </div>
+                            <div>
+                                <h4>Projetos Desafiadores</h4>
+                                <p>Trabalhe em projetos inovadores com tecnologias de ponta</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div>
+                                <h4>Desenvolvimento Contínuo</h4>
+                                <p>Acesso a cursos e certificações para aprimorar suas habilidades</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <div>
+                                <h4>Flexibilidade</h4>
+                                <p>Trabalho remoto, híbrido ou presencial - você escolhe</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="devs-form">
+                    <h3>Crie seu Perfil</h3>
+                    <form id="formDev">
+                        <div class="form-group">
+                            <label for="devNome">Nome Completo</label>
+                            <input type="text" id="devNome" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="devEmail">Email</label>
+                            <input type="email" id="devEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="devExperiencia">Anos de Experiência</label>
+                            <select id="devExperiencia" required>
+                                <option value="">Selecione</option>
+                                <option value="0-1">0-1 anos</option>
+                                <option value="1-3">1-3 anos</option>
+                                <option value="3-5">3-5 anos</option>
+                                <option value="5+">5+ anos</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="devEspecialidades">Especialidades</label>
+                            <div class="checkbox-group">
+                                <label><input type="checkbox" value="frontend"> Frontend</label>
+                                <label><input type="checkbox" value="backend"> Backend</label>
+                                <label><input type="checkbox" value="mobile"> Mobile</label>
+                                <label><input type="checkbox" value="devops"> DevOps</label>
+                                <label><input type="checkbox" value="ml"> Machine Learning</label>
+                                <label><input type="checkbox" value="qa"> QA</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="devPortfolio">Link do Portfólio / GitHub</label>
+                            <input type="url" id="devPortfolio" placeholder="https://github.com/seu-usuario">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Criar Perfil</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Estatísticas -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-number" data-count="500">0</div>
+                    <p>Programadores Qualificados</p>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number" data-count="150">0</div>
+                    <p>Empresas Parceiras</p>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number" data-count="1200">0</div>
+                    <p>Profissionais Contratados</p>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number" data-count="98">0</div>
+                    <p>% de Satisfação</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contato -->
+    <section id="contato" class="contato">
+        <div class="container">
+            <div class="section-title">
+                <h2>Entre em Contato</h2>
+                <p>Tire suas dúvidas ou solicite uma apresentação</p>
+            </div>
+            <div class="contato-grid">
+                <form id="formContato" class="contato-form">
+                    <div class="form-group">
+                        <label for="contatoNome">Nome</label>
+                        <input type="text" id="contatoNome" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contatoEmail">Email</label>
+                        <input type="email" id="contatoEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contatoAssunto">Assunto</label>
+                        <input type="text" id="contatoAssunto" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contatoMensagem">Mensagem</label>
+                        <textarea id="contatoMensagem" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Enviar Mensagem</button>
+                </form>
+                <div class="contato-info">
+                    <h3>Informações de Contato</h3>
+                    <div class="info-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Telefone</h4>
+                            <p>+55 (11) 98765-4321</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>contato@techconnect.com</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Localização</h4>
+                            <p>São Paulo, SP - Brasil</p>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>TechConnect</h4>
+                    <p>Conectando talento com oportunidade no universo da tecnologia</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Links Rápidos</h4>
+                    <ul>
+                        <li><a href="#home">Início</a></li>
+                        <li><a href="#servicos">Serviços</a></li>
+                        <li><a href="#para-empresas">Para Empresas</a></li>
+                        <li><a href="#para-devs">Para Devs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacidade</a></li>
+                        <li><a href="#">Termos de Uso</a></li>
+                        <li><a href="#">Cookies</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 TechConnect. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notificação -->
+    <div id="notification" class="notification"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

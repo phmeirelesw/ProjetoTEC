@@ -1,0 +1,33 @@
+# Node modules
+node_modules/
+npm-debug.log
+package-lock.json
+yarn.lock
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Build files
+dist/
+build/
+*.min.js
+*.min.css
+
+# OS
+Thumbs.db
+.AppleDouble
+.LSOverride
+
+# Misc
+*.log
+.cache

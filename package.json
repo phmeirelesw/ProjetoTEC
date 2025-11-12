@@ -1,0 +1,25 @@
+{
+  "name": "techconnect",
+  "version": "1.0.0",
+  "description": "Plataforma de intermediação de programadores - TechConnect",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "dev": "npx http-server -p 8000",
+    "build": "echo 'No build needed for static site'",
+    "test": "echo 'Add tests here'"
+  },
+  "keywords": [
+    "tech",
+    "programming",
+    "recruitment",
+    "developers",
+    "intermediation"
+  ],
+  "author": "TechConnect Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/phmeirelesw/ProjetoTEC"
+  }
+}
