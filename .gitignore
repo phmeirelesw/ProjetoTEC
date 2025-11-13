@@ -12,10 +12,14 @@ yarn.lock
 *~
 .DS_Store
 
-# Environment
+# Environments
 .env
-.env.local
-.env.*.local
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
 
 # Build files
 dist/
