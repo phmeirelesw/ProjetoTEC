@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechBridge - Talentos Disponíveis</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-brand">
+                <i class="fas fa-code"></i> TechBridge
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <a href="index.html#home" class="nav-link">Início</a>
+                <a href="index.html#servicos" class="nav-link">Serviços</a>
+                <a href="index.html#para-empresas" class="nav-link">Para Empresas</a>
+                <a href="index.html#para-devs" class="nav-link">Para Desenvolvedores</a>
+                <a href="index.html#contato" class="nav-link">Contato</a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <section id="programadores" class="servicos" style="padding-top: 100px;"> <div class="container">
+            <div class="section-title">
+                <h2>Nossos Talentos</h2>
+                <p>Conheça os especialistas prontos para o seu projeto.</p>
+            </div>
+            
+            <div class="servicos-grid" id="programadoresGrid">
+
+                <div class="servico-card" data-especialidade="frontend">
+                    <div class="servico-header">
+                        <i class="fas fa-globe"></i>
+                        <h3>Ana Silva</h3>
+                    </div>
+                    <p><strong>Especialista Frontend</strong> com 5+ anos de experiência em interfaces responsivas e de alta performance.</p>
+                    <ul class="tech-list">
+                        <li>React</li>
+                        <li>Vue.js</li>
+                        <li>TypeScript</li>
+                        <li>Figma</li>
+                    </ul>
+                </div>
+
+                <div class="servico-card" data-especialidade="backend">
+                    <div class="servico-header">
+                        <i class="fas fa-database"></i>
+                        <h3>Bruno Costa</h3>
+                    </div>
+                    <p><strong>Arquiteto Backend</strong> focado em escalabilidade e microsserviços. Experiente em AWS.</p>
+                    <ul class="tech-list">
+                        <li>Node.js</li>
+                        <li>Python (Django)</li>
+                        <li>Java (Spring)</li>
+                        <li>AWS</li>
+                    </ul>
+                </div>
+
+                <div class="servico-card" data-especialidade="fullstack">
+                    <div class="servico-header">
+                        <i class="fas fa-code"></i>
+                        <h3>Carla Dias</h3>
+                    </div>
+                    <p><strong>Desenvolvedora Full Stack</strong>. Transforma ideias em produtos completos, do banco de dados à interface.</p>
+                    <ul class="tech-list">
+                        <li>React</li>
+                        <li>Node.js</li>
+                        <li>PostgreSQL</li>
+                        <li>Docker</li>
+                    </ul>
+                </div>
+
+                <div class="servico-card" data-especialidade="mobile">
+                    <div class="servico-header">
+                        <i class="fas fa-mobile-alt"></i>
+                        <h3>Daniel Moreira</h3>
+                    </div>
+                    <p><strong>Especialista Mobile</strong> criando apps nativos e híbridos para iOS e Android.</p>
+                    <ul class="tech-list">
+                        <li>React Native</li>
+                        <li>Flutter</li>
+                        <li>Swift</li>
+                        <li>Kotlin</li>
+                    </ul>
+                </div>
+
+                <div class="servico-card" data-especialidade="devops">
+                    <div class="servico-header">
+                        <i class="fas fa-server"></i>
+                        <h3>Elisa Fernandes</h3>
+                    </div>
+                    <p><strong>Engenheira DevOps</strong> garantindo a estabilidade e a entrega contínua dos seus sistemas.</p>
+                    <ul class="tech-list">
+                        <li>AWS</li>
+                        <li>Kubernetes</li>
+                        <li>Terraform</li>
+                        <li>CI/CD</li>
+                    </ul>
+                </div>
+
+                <div class="servico-card" data-especialidade="ml">
+                    <div class="servico-header">
+                        <i class="fas fa-robot"></i>
+                        <h3>Felipe Guedes</h3>
+                    </div>
+                    <p><strong>Engenheiro de ML</strong> especializado em processamento de linguagem natural e visão computacional.</p>
+                    <ul class="tech-list">
+                        <li>Python</li>
+                        <li>TensorFlow</li>
+                        <li>PyTorch</li>
+                        <li>Scikit-learn</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 TechBridge. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="notification" class="notification"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
