@@ -1,7 +1,7 @@
 {
-  "name": "techconnect",
+  "name": "techbridge",
   "version": "1.0.0",
-  "description": "Plataforma de intermediação de programadores - TechConnect",
+  "description": "Plataforma de intermediação de programadores - TechBridge",
   "main": "index.html",
   "scripts": {
     "start": "python -m http.server 8000",
@@ -16,7 +16,7 @@
     "developers",
     "intermediation"
   ],
-  "author": "TechConnect Team",
+  "author": "TechBridge Team",
   "license": "MIT",
   "repository": {
     "type": "git",
