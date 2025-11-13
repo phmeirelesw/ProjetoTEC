@@ -180,7 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // 1. Verifica se é o form de empresa E se o CNPJ foi validado
         if (this === formEmpresa && !cnpjValidado) {
             showNotification('⚠️ Por favor, valide o CNPJ antes de enviar!', 'error');
-            return;
+            return; // Bloqueia o envio
         }
 
         // 2. Validação geral
@@ -189,41 +189,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (isValid) {
             
-            // --- INÍCIO DA LÓGICA DE REDIRECIONAMENTO ---
             // 3. Verifica se o formulário enviado é o 'formEmpresa'
             if (this.id === 'formEmpresa') {
                 // Se for, pega o tipo de dev e redireciona
                 const tipoDev = document.getElementById('empresaTipo').value;
                 showNotification('✅ Formulário enviado! Mostrando talentos...', 'success');
                 
-                // Reseta o formulário IMEDIATAMENTE
                 this.reset();
-                cnpjValidado = false; // Reseta a flag do CNPJ
+                cnpjValidado = false; 
 
-                // Espera 2 segundos MAIS para o usuário ler a notificação
+                // Espera 2 segundos para o usuário ler a notificação
                 setTimeout(() => {
-                    // Redireciona para a página de programadores com o filtro
                     window.location.href = `programadores.html?tipo=${tipoDev}`;
-                }, 2000);
+                }, 2000); // 2 segundos
 
             } else {
-                // 4. Se for qualquer outro formulário (Devs ou Contato)
+                // 4. CORREÇÃO: Se for qualquer outro formulário (Devs ou Contato)
+                // Apenas mostramos a notificação e resetamos.
+                // O 'setTimeout' anterior estava causando o bug.
                 showNotification('✅ Formulário enviado com sucesso! Entraremos em contato em breve.', 'success');
-                
-                // Reseta o formulário IMEDIATAMENTE
                 this.reset();
-
-                // Espera 3 segundos e depois volta ao topo
-                setTimeout(() => {
-                    window.scrollTo({
-                        top: 0,
-                        behavior: 'smooth'
-                    });
-                    // Limpa a notificação
-                    document.getElementById('notification').classList.remove('show');
-                }, 3000);
             }
-            // --- FIM DA LÓGICA DE REDIRECIONAMENTO ---
 
             // Loga os dados no console
             console.log('Form Data:', Object.fromEntries(formData));
@@ -519,4 +505,34 @@ document.addEventListener('DOMContentLoaded', () => {
 function trackEvent(eventName, eventData = {}) {
     console.log(`Event: ${eventName}`, eventData);
     // You can integrate with Google Analytics or other services here
+}
+
+// ========== VALIDATION FUNCTION ==========
+function validateForm(form) {
+    const inputs = form.querySelectorAll('input[required], textarea[required], select[required]');
+    let isValid = true;
+
+    inputs.forEach(input => {
+        if (!input.value.trim()) {
+            highlightField(input);
+            isValid = false;
+        } else {
+            removeHighlight(input);
+        }
+
+        // Validação específica para email
+        if (input.type === 'email' && input.value) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(input.value)) {
+                highlightField(input);
+                isValid = false;
+            }
+        }
+    });
+
+    if (!isValid) {
+        showNotification('⚠️ Por favor, preencha todos os campos obrigatórios!', 'error');
+    }
+
+    return isValid;
 }
