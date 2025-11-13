@@ -417,8 +417,9 @@ body {
 
 .empresa-form h3 {
     font-size: 1.5rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.5rem;
     color: var(--accent-blue);
+    font-family: "Montserrat", sans-serif;
 }
 
 .form-group {
@@ -892,20 +893,111 @@ body {
     background: rgba(0, 102, 255, 0.1);
 }
 /* Estilo para o link "Ver Talentos" no formulário de empresa */
-.empresa-form .link-talentos {
-    text-align: center;
-    margin-top: -0.5rem; /* Puxa para mais perto do título */
-    margin-bottom: 1.5rem;
-    color: var(--text-lighter);
-    font-size: 0.95rem;
+.divisor-ou {
+    font-size: 1rem;            /* Menor */
+    color: var(--text-lighter); /* Cinza */
+    margin-bottom: 0.5rem;      /* Espaçamento abaixo dele */
+    text-align: left;           /* Alinhado à esquerda */
 }
-.empresa-form .link-talentos a {
-    color: var(--accent-blue);
-    text-decoration: none;
+
+/* 2. Estiliza o link "veja nossos talentos" (igual ao H3) */
+.link-ver-talentos {
+    display: block; /* Necessário para aplicar margin-bottom */
+    font-size: 1.5rem;         /* Mesmo tamanho do H3 */
+    color: var(--accent-blue); /* Mesma cor do H3 */
     font-weight: 600;
+    text-decoration: none;
+    margin-bottom: 1.5rem;     /* Espaçamento antes do formulário */
     transition: var(--transition);
+    font-family: "Montserrat", sans-serif;
 }
-.empresa-form .link-talentos a:hover {
+
+.link-ver-talentos:hover {
     color: var(--accent-cyan);
-    text-decoration: underline;
+}
+/* ========================================
+   ESTILOS DA PÁGINA DE PROGRAMADORES
+   ======================================== */
+
+/* Remove o padding padrão para a imagem se ajustar melhor */
+#programadores .servico-card {
+    padding: 0;
+    overflow: hidden; /* Garante que a foto do dev não vaze */
+}
+
+.dev-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    background-color: rgba(0, 102, 255, 0.05); /* Um leve destaque no cabeçalho */
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.dev-photo {
+    width: 70px; /* Tamanho da foto */
+    height: 70px;
+    border-radius: 50%; /* Foto redonda */
+    border: 3px solid var(--accent-blue);
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.dev-title h3 {
+    font-size: 1.4rem; /* Nome do dev */
+    color: var(--text-light);
+    margin: 0;
+}
+
+.dev-specialty {
+    font-size: 0.95rem;
+    color: var(--accent-cyan); /* Cor de destaque para especialidade */
+    font-weight: 600;
+    margin: 0;
+}
+
+/* Remove o estilo antigo que não é mais necessário */
+#programadores .servico-header {
+    margin-bottom: 0;
+}
+
+/* Esconde o ícone antigo (se existir) */
+#programadores .servico-header i {
+    display: none; 
+}
+
+/* Biografia / Resumo */
+.dev-bio {
+    padding: 1.5rem;
+    padding-bottom: 1rem;
+    color: var(--text-lighter); /* Texto principal */
+    font-size: 0.95rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Detalhes (Idade, Formação, etc.) */
+.dev-details {
+    padding: 1.5rem;
+    background-color: rgba(0, 0, 0, 0.1); /* Fundo sutil */
+}
+
+.dev-details p {
+    color: var(--text-lighter);
+    font-size: 0.9rem;
+    margin: 0.5rem 0;
+    display: flex;
+}
+
+.dev-details p strong {
+    color: var(--text-light);
+    width: 100px; /* Alinha os 'valores' */
+    flex-shrink: 0;
+    display: inline-block;
+}
+
+/* Ajusta o padding da tech-list */
+#programadores .tech-list {
+    padding: 1.5rem;
+    padding-top: 1rem;
+    margin-bottom: 0; 
 }
