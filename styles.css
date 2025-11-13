@@ -891,3 +891,21 @@ body {
 .btn-icon:hover {
     background: rgba(0, 102, 255, 0.1);
 }
+/* Estilo para o link "Ver Talentos" no formulário de empresa */
+.empresa-form .link-talentos {
+    text-align: center;
+    margin-top: -0.5rem; /* Puxa para mais perto do título */
+    margin-bottom: 1.5rem;
+    color: var(--text-lighter);
+    font-size: 0.95rem;
+}
+.empresa-form .link-talentos a {
+    color: var(--accent-blue);
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition);
+}
+.empresa-form .link-talentos a:hover {
+    color: var(--accent-cyan);
+    text-decoration: underline;
+}
