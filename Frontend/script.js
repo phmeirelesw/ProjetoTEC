@@ -1,3 +1,78 @@
+// ========== HELPER FUNCTIONS (GLOBAL SCOPE) ==========
+let cnpjValidado = false; // Flag para controlar validação
+
+function showNotification(message, type = 'info') {
+    const notification = document.getElementById('notification');
+    notification.textContent = message;
+    notification.className = 'notification show';
+
+    if (type === 'success') {
+        notification.style.background = 'linear-gradient(135deg, #00b359, #00e699)';
+    } else if (type === 'error') {
+        notification.style.background = 'linear-gradient(135deg, #ff4444, #ff6666)';
+    } else {
+        notification.style.background = 'linear-gradient(135deg, #0066ff, #1e90ff)';
+    }
+
+    setTimeout(() => {
+        notification.classList.remove('show');
+    }, 3000);
+}
+
+function highlightField(field) {
+    field.style.borderColor = '#ff4444';
+    field.style.boxShadow = '0 0 10px rgba(255, 68, 68, 0.3)';
+}
+
+function removeHighlight(field) {
+    field.style.borderColor = '';
+    field.style.boxShadow = '';
+}
+
+async function buscarCNPJ() {
+    const cnpjInput = document.getElementById('empresaCNPJ');
+    
+    const cnpjLimpo = cnpjInput.value.replace(/[\.\-\/]/g, '');
+
+    if (cnpjLimpo.length !== 14) {
+        showNotification('CNPJ inválido. Digite 14 números.', 'error');
+        highlightField(cnpjInput);
+        cnpjValidado = false;
+        return;
+    }
+
+    showNotification('Buscando dados do CNPJ...', 'info');
+
+    try {
+        const response = await fetch(`https://brasilapi.com.br/api/cnpj/v1/${cnpjLimpo}`);
+
+        if (!response.ok) {
+            throw new Error('CNPJ não encontrado ou inválido.');
+        }
+
+        const data = await response.json();
+
+        if (document.getElementById('empresaNome')) {
+            document.getElementById('empresaNome').value = data.razao_social;
+        }
+
+        showNotification('Empresa encontrada e dados preenchidos!', 'success');
+        removeHighlight(cnpjInput);
+        if (document.getElementById('empresaNome')) {
+            removeHighlight(document.getElementById('empresaNome'));
+        }
+
+        // ✅ MARCA COMO VALIDADO
+        cnpjValidado = true;
+
+    } catch (error) {
+        console.error('Erro ao buscar CNPJ:', error);
+        showNotification(error.message, 'error');
+        highlightField(cnpjInput);
+        cnpjValidado = false;
+    }
+}
+
 // ========== SMOOTH SCROLL & NAVBAR INTERACTION ==========
 document.addEventListener('DOMContentLoaded', () => {
     const hamburger = document.getElementById('hamburger');
@@ -69,15 +144,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ========== FORM VALIDATION & SUBMISSION ==========
-    setupFormHandlers();
-
     function setupFormHandlers() {
         // Empresa Form
         const formEmpresa = document.getElementById('formEmpresa');
         if (formEmpresa) {
             formEmpresa.addEventListener('submit', handleFormSubmit);
-        }
 
+            // Adiciona o "ouvinte" de clique no botão de busca
+            const btnBuscarCNPJ = document.getElementById('btnBuscarCNPJ');
+            if (btnBuscarCNPJ) {
+                btnBuscarCNPJ.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    buscarCNPJ();
+                });
+            }
+        }
         // Dev Form
         const formDev = document.getElementById('formDev');
         if (formDev) {
@@ -94,91 +175,45 @@ document.addEventListener('DOMContentLoaded', () => {
     function handleFormSubmit(e) {
         e.preventDefault();
 
-        // Validate form
+        const formEmpresa = document.getElementById('formEmpresa');
+        
+        // 1. Verifica se é o form de empresa E se o CNPJ foi validado
+        if (this === formEmpresa && !cnpjValidado) {
+            showNotification('⚠️ Por favor, valide o CNPJ antes de enviar!', 'error');
+            return; // Bloqueia o envio
+        }
+
+        // 2. Validação geral
         const formData = new FormData(this);
         const isValid = validateForm(this);
 
         if (isValid) {
-            // Show success notification
-            showNotification('Formulário enviado com sucesso! Entraremos em contato em breve.', 'success');
+            
+            // 3. Verifica se o formulário enviado é o 'formEmpresa'
+            if (this.id === 'formEmpresa') {
+                // Se for, pega o tipo de dev e redireciona
+                const tipoDev = document.getElementById('empresaTipo').value;
+                showNotification('✅ Formulário enviado! Mostrando talentos...', 'success');
+                
+                this.reset();
+                cnpjValidado = false; 
 
-            // Reset form
-            this.reset();
+                // Espera 2 segundos para o usuário ler a notificação
+                setTimeout(() => {
+                    window.location.href = `programadores.html?tipo=${tipoDev}`;
+                }, 2000); // 2 segundos
 
-            // Simulate sending data (in production, this would be an API call)
-            console.log('Form Data:', Object.fromEntries(formData));
-
-            // You can uncomment to make an actual API call:
-            // sendFormData(this);
-        }
-    }
-
-    function validateForm(form) {
-        const inputs = form.querySelectorAll('input, textarea, select');
-        let isValid = true;
-
-        inputs.forEach(input => {
-            if (!input.value.trim()) {
-                highlightField(input);
-                isValid = false;
             } else {
-                removeHighlight(input);
+                // 4. CORREÇÃO: Se for qualquer outro formulário (Devs ou Contato)
+                // Apenas mostramos a notificação e resetamos.
+                // O 'setTimeout' anterior estava causando o bug.
+                showNotification('✅ Formulário enviado com sucesso! Entraremos em contato em breve.', 'success');
+                this.reset();
             }
 
-            // Validate email
-            if (input.type === 'email' && input.value.trim()) {
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailRegex.test(input.value)) {
-                    highlightField(input);
-                    isValid = false;
-                } else {
-                    removeHighlight(input);
-                }
-            }
-
-            // Validate URL
-            if (input.type === 'url' && input.value.trim()) {
-                try {
-                    new URL(input.value);
-                    removeHighlight(input);
-                } catch {
-                    highlightField(input);
-                    isValid = false;
-                }
-            }
-        });
-
-        return isValid;
-    }
-
-    function highlightField(field) {
-        field.style.borderColor = '#ff4444';
-        field.style.boxShadow = '0 0 10px rgba(255, 68, 68, 0.3)';
-    }
-
-    function removeHighlight(field) {
-        field.style.borderColor = '';
-        field.style.boxShadow = '';
-    }
-
-    // ========== NOTIFICATION SYSTEM ==========
-    function showNotification(message, type = 'info') {
-        const notification = document.getElementById('notification');
-        notification.textContent = message;
-        notification.className = 'notification show';
-
-        // Add type-specific styling
-        if (type === 'success') {
-            notification.style.background = 'linear-gradient(135deg, #00b359, #00e699)';
-        } else if (type === 'error') {
-            notification.style.background = 'linear-gradient(135deg, #ff4444, #ff6666)';
-        } else {
-            notification.style.background = 'linear-gradient(135deg, #0066ff, #1e90ff)';
+            // Loga os dados no console
+            console.log('Form Data:', Object.fromEntries(formData));
         }
-
-        setTimeout(() => {
-            notification.classList.remove('show');
-        }, 3000);
     }
 
     // ========== PARALLAX EFFECT ==========
@@ -413,6 +448,56 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // ========== CHAMAR SETUP DE FORMULÁRIOS ==========
+    setupFormHandlers();
+
+    // ========== LÓGICA DA PÁGINA DE PROGRAMADORES ==========
+    // Este código só roda se encontrar o 'programadoresGrid'
+    const programadoresGrid = document.getElementById('programadoresGrid');
+    if (programadoresGrid) {
+        
+        // 1. Pega o parâmetro 'tipo' da URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const tipoFiltro = urlParams.get('tipo');
+        
+        const todosOsDevs = programadoresGrid.querySelectorAll('.servico-card');
+        let devEncontrado = false;
+        let filtroAplicado = false;
+
+        // 2. Se houver um filtro na URL...
+        if (tipoFiltro && tipoFiltro !== "") {
+            filtroAplicado = true;
+            todosOsDevs.forEach(devCard => {
+                const especialidade = devCard.getAttribute('data-especialidade');
+                
+                // 3. Compara a especialidade do card com o filtro
+                if (especialidade === tipoFiltro) {
+                    devCard.style.display = 'block'; // Mostra
+                    devEncontrado = true;
+                } else {
+                    devCard.style.display = 'none'; // Esconde
+                }
+            });
+        }
+
+        // 4. Atualiza o subtítulo da página para refletir o filtro
+        const sectionTitleP = document.querySelector('#programadores .section-title p');
+        if (filtroAplicado) {
+            const filtroCapitalizado = tipoFiltro.charAt(0).toUpperCase() + tipoFiltro.slice(1);
+            
+            if (devEncontrado) {
+                sectionTitleP.textContent = `Mostrando talentos para: ${filtroCapitalizado}`;
+            } else {
+                sectionTitleP.textContent = `Nenhum talento encontrado para "${filtroCapitalizado}". Mostrando todos.`;
+                // Se não encontrou, mostra todos
+                todosOsDevs.forEach(devCard => {
+                    devCard.style.display = 'block';
+                });
+            }
+        }
+        // Se nenhum filtro foi aplicado, a página simplesmente mostra todos os devs.
+    }
+
     console.log('TechConnect - Site carregado com sucesso! 🚀');
 });
 
@@ -422,22 +507,32 @@ function trackEvent(eventName, eventData = {}) {
     // You can integrate with Google Analytics or other services here
 }
 
-// ========== API INTEGRATION EXAMPLE ==========
-async function IngestaoCNPJ(form) {
-    try {
-        const formData = new FormData(form);
-        const response = await fetch('https://api.opencnpj.org/{CNPJ}', {
-            method: 'GET',
-            body: formData
-        });
+// ========== VALIDATION FUNCTION ==========
+function validateForm(form) {
+    const inputs = form.querySelectorAll('input[required], textarea[required], select[required]');
+    let isValid = true;
 
-        if (response.ok) {
-            showNotification('Dados carregados com sucesso!', 'success');
+    inputs.forEach(input => {
+        if (!input.value.trim()) {
+            highlightField(input);
+            isValid = false;
         } else {
-            showNotification('Erro ao carregar dados. Tente novamente.', 'error');
+            removeHighlight(input);
         }
-    } catch (error) {
-        console.error('Error:', error);
-        showNotification('Erro de conexão. Tente novamente.', 'error');
+
+        // Validação específica para email
+        if (input.type === 'email' && input.value) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(input.value)) {
+                highlightField(input);
+                isValid = false;
+            }
+        }
+    });
+
+    if (!isValid) {
+        showNotification('⚠️ Por favor, preencha todos os campos obrigatórios!', 'error');
     }
+
+    return isValid;
 }
