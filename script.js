@@ -177,68 +177,57 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const formEmpresa = document.getElementById('formEmpresa');
         
-        // ✅ VERIFICA SE É O FORMULÁRIO DE EMPRESA E SE O CNPJ FOI VALIDADO
+        // 1. Verifica se é o form de empresa E se o CNPJ foi validado
         if (this === formEmpresa && !cnpjValidado) {
             showNotification('⚠️ Por favor, valide o CNPJ antes de enviar!', 'error');
             return;
         }
 
-        // Validate form
+        // 2. Validação geral
         const formData = new FormData(this);
         const isValid = validateForm(this);
 
         if (isValid) {
-            // Show success notification
-            showNotification('Formulário enviado com sucesso! Entraremos em contato em breve.', 'success');
+            
+            // --- INÍCIO DA LÓGICA DE REDIRECIONAMENTO ---
+            // 3. Verifica se o formulário enviado é o 'formEmpresa'
+            if (this.id === 'formEmpresa') {
+                // Se for, pega o tipo de dev e redireciona
+                const tipoDev = document.getElementById('empresaTipo').value;
+                showNotification('✅ Formulário enviado! Mostrando talentos...', 'success');
+                
+                // Reseta o formulário IMEDIATAMENTE
+                this.reset();
+                cnpjValidado = false; // Reseta a flag do CNPJ
 
-            // Reset form
-            this.reset();
-            cnpjValidado = false; // Reseta a validação após envio
+                // Espera 2 segundos MAIS para o usuário ler a notificação
+                setTimeout(() => {
+                    // Redireciona para a página de programadores com o filtro
+                    window.location.href = `programadores.html?tipo=${tipoDev}`;
+                }, 2000);
 
-            // Simulate sending data (in production, this would be an API call)
-            console.log('Form Data:', Object.fromEntries(formData));
-
-            // You can uncomment to make an actual API call:
-            // sendFormData(this);
-        }
-    }
-
-    function validateForm(form) {
-        const inputs = form.querySelectorAll('input, textarea, select');
-        let isValid = true;
-
-        inputs.forEach(input => {
-            if (!input.value.trim()) {
-                highlightField(input);
-                isValid = false;
             } else {
-                removeHighlight(input);
-            }
+                // 4. Se for qualquer outro formulário (Devs ou Contato)
+                showNotification('✅ Formulário enviado com sucesso! Entraremos em contato em breve.', 'success');
+                
+                // Reseta o formulário IMEDIATAMENTE
+                this.reset();
 
-            // Validate email
-            if (input.type === 'email' && input.value.trim()) {
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailRegex.test(input.value)) {
-                    highlightField(input);
-                    isValid = false;
-                } else {
-                    removeHighlight(input);
-                }
+                // Espera 3 segundos e depois volta ao topo
+                setTimeout(() => {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                    // Limpa a notificação
+                    document.getElementById('notification').classList.remove('show');
+                }, 3000);
             }
+            // --- FIM DA LÓGICA DE REDIRECIONAMENTO ---
 
-            // Validate URL
-            if (input.type === 'url' && input.value.trim()) {
-                try {
-                    new URL(input.value);
-                    removeHighlight(input);
-                } catch {
-                    highlightField(input);
-                    isValid = false;
-                }
-            }
-        });
-
-        return isValid;
+            // Loga os dados no console
+            console.log('Form Data:', Object.fromEntries(formData));
+        }
     }
 
     // ========== PARALLAX EFFECT ==========
@@ -475,6 +464,53 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ========== CHAMAR SETUP DE FORMULÁRIOS ==========
     setupFormHandlers();
+
+    // ========== LÓGICA DA PÁGINA DE PROGRAMADORES ==========
+    // Este código só roda se encontrar o 'programadoresGrid'
+    const programadoresGrid = document.getElementById('programadoresGrid');
+    if (programadoresGrid) {
+        
+        // 1. Pega o parâmetro 'tipo' da URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const tipoFiltro = urlParams.get('tipo');
+        
+        const todosOsDevs = programadoresGrid.querySelectorAll('.servico-card');
+        let devEncontrado = false;
+        let filtroAplicado = false;
+
+        // 2. Se houver um filtro na URL...
+        if (tipoFiltro && tipoFiltro !== "") {
+            filtroAplicado = true;
+            todosOsDevs.forEach(devCard => {
+                const especialidade = devCard.getAttribute('data-especialidade');
+                
+                // 3. Compara a especialidade do card com o filtro
+                if (especialidade === tipoFiltro) {
+                    devCard.style.display = 'block'; // Mostra
+                    devEncontrado = true;
+                } else {
+                    devCard.style.display = 'none'; // Esconde
+                }
+            });
+        }
+
+        // 4. Atualiza o subtítulo da página para refletir o filtro
+        const sectionTitleP = document.querySelector('#programadores .section-title p');
+        if (filtroAplicado) {
+            const filtroCapitalizado = tipoFiltro.charAt(0).toUpperCase() + tipoFiltro.slice(1);
+            
+            if (devEncontrado) {
+                sectionTitleP.textContent = `Mostrando talentos para: ${filtroCapitalizado}`;
+            } else {
+                sectionTitleP.textContent = `Nenhum talento encontrado para "${filtroCapitalizado}". Mostrando todos.`;
+                // Se não encontrou, mostra todos
+                todosOsDevs.forEach(devCard => {
+                    devCard.style.display = 'block';
+                });
+            }
+        }
+        // Se nenhum filtro foi aplicado, a página simplesmente mostra todos os devs.
+    }
 
     console.log('TechConnect - Site carregado com sucesso! 🚀');
 });
