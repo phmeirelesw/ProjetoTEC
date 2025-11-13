@@ -315,23 +315,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.documentElement.style.setProperty('--mouse-y', `${mouseY * 100}%`);
     });
 
-    // ========== DARK MODE TOGGLE (Optional) ==========
-    // Uncomment to add dark mode functionality
-    /*
-    const darkModeToggle = document.getElementById('darkModeToggle');
-    if (darkModeToggle) {
-        darkModeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('light-mode');
-            localStorage.setItem('darkMode', document.body.classList.contains('light-mode'));
-        });
-
-        // Restore preference
-        if (localStorage.getItem('darkMode') === 'true') {
-            document.body.classList.add('light-mode');
-        }
-    }
-    */
-
     // ========== SMOOTH SCROLL ANCHOR LINKS ==========
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
