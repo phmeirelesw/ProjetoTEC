@@ -1,213 +1,134 @@
-# TechConnect - Plataforma de Intermediação de Programadores
+---
+# TechBridge — Documentação Formal
 
-Um website sofisticado e moderno para uma empresa que busca intermediar a relação entre empresas e programadores de qualidade.
+Descrição
+---------
+`TechBridge` é uma plataforma para intermediação entre empresas e programadores. A aplicação fornece um front-end responsivo com páginas públicas (landing, listagem de programadores, formulários) e uma API backend (FastAPI) para fornecer dados de programadores e integrar processos de seleção.
 
-## 🎨 Características Principais
+Objetivo
+--------
+Fornecer uma interface simples e segura para empresas solicitarem candidatos e para desenvolvedores disponibilizarem seus perfis, com foco em qualidade, velocidade no processo e experiência do usuário.
 
-### Design & Estética
-- **Paleta de Cores**: Preto e Azul sofisticado
-- **Glassmorphism**: Efeito de vidro fosco moderno
-- **Gradient**: Gradientes lineares elegantes
-- **Responsivo**: 100% adaptável a dispositivos móveis
-- **Performance**: Otimizado para carregamento rápido
+Principais Recursos
+-------------------
+- Interface responsiva e moderna (`index.html`, `styles.css`, `script.js`).
+- Listagem filtrável de programadores (`programadores.html`, `programadores.js`).
+- Backend em FastAPI (`Backend/api.py`) com endpoints para obter programadores e especialidades.
+- Estrutura de CSS e animações otimizadas para performance.
 
-### Funcionalidades JavaScript
+Estrutura do Repositório
+------------------------
+Principais arquivos e pastas:
 
-#### 1. **Navegação Inteligente**
-- Menu mobile responsivo com hamburger menu
-- Auto-hide na scroll down
-- Smooth scroll para âncoras
-- Highlight dinâmico de seção ativa
+- `index.html` — Página principal da aplicação.
+- `programadores.html` — Página de listagem de talentos.
+- `Frontend/` — Código estático (HTML, CSS, JS): `script.js`, `styles.css`, `programadores.js`.
+- `Backend/` — Backend em Python (FastAPI): `api.py`.
+- `requirements.txt` — Dependências Python (quando aplicável).
+- `README.md` — Esta documentação.
 
-#### 2. **Animações**
-- Digitação de texto no hero
-- Contadores animados para estatísticas
-- Fade-in em elementos visíveis
-- Efeito parallax
-- Flutuação de elementos de fundo
+Requisitos
+----------
+- Python 3.8+ (recomendado)
+- Node.js / npx (opcional para servir frontend)
+- Bibliotecas Python: `fastapi`, `uvicorn` (instalar via `pip`)
 
-#### 3. **Validação de Formulários**
-- Validação em tempo real
-- Feedback visual de erros
-- Suporte a validação de email e URL
-- Notificações de sucesso/erro
+Instalação e Execução (Desenvolvimento)
+--------------------------------------
 
-#### 4. **Sistema de Notificações**
-- Notificações toast customizáveis
-- Cores diferentes para sucesso/erro/info
-- Auto-dismiss após 3 segundos
+1) Criar e ativar ambiente Python (opcional, recomendado):
 
-#### 5. **Interatividade**
-- Hover effects sofisticados
-- Mouse tracking em cards
-- Efeitos de glassmorphism dinâmicos
-- Acessibilidade (suporte a teclado)
-
-## 📁 Estrutura de Arquivos
-
-```
-ProjetoTEC/
-├── index.html      # Arquivo principal HTML
-├── styles.css      # Estilos CSS com design sofisticado
-├── script.js       # Funcionalidades JavaScript
-└── README.md       # Este arquivo
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
 ```
 
-## 🚀 Como Usar
+2) Instalar dependências (instale `fastapi` e `uvicorn` caso não exista `requirements.txt`):
 
-### 1. Abrir Localmente
-- Abra `index.html` diretamente no navegador
-- Ou use um servidor local (Python, Node.js, etc.)
+```powershell
+pip install -r requirements.txt
+# ou
+pip install fastapi uvicorn
+```
 
-### Python
-```bash
+3) Executar o backend (FastAPI / Uvicorn):
+
+```powershell
+# Executa o app FastAPI definido em Backend\api.py
+uvicorn Backend.api:app --reload --host 0.0.0.0 --port 8000
+```
+
+4) Servir o frontend localmente (opções):
+
+- Usando o servidor HTTP simples do Python (executar na raiz do projeto):
+
+```powershell
 python -m http.server 8000
-# Acesse http://localhost:8000
+# Acesse http://localhost:8000/index.html
 ```
 
-### Node.js (http-server)
-```bash
-npx http-server
+- Ou com `npx http-server` (Node.js):
+
+```powershell
+npx http-server . -p 8080
 # Acesse http://localhost:8080
 ```
 
-### Live Server (VS Code)
-- Instale a extensão "Live Server"
-- Clique direito em `index.html` → "Open with Live Server"
+Endpoints Principais (API)
+-------------------------
+Nota: por padrão a API escuta na porta `8000`.
 
-## 📱 Seções do Site
+- `GET /programadores/` — Retorna a lista completa de programadores.
+    - Parâmetros opcionais: `?tipo=<especialidade>` (ex.: `frontend`, `backend`, `fullstack`, `mobile`, `devops`, `ml`).
+    - Exemplo: `GET http://localhost:8000/programadores/?tipo=frontend`
 
-### 1. **Hero**
-Introdução impactante com call-to-action
+- `GET /programadores/especialidades` — Retorna a lista de especialidades disponíveis.
 
-### 2. **Sobre**
-Benefícios principais da plataforma com cards interativos
+Formato de resposta (exemplo simplificado):
 
-### 3. **Serviços**
-6 categorias de desenvolvimento com tecnologias associadas
-
-### 4. **Para Empresas**
-Formulário para solicitar programadores + benefícios
-
-### 5. **Para Desenvolvedores**
-Formulário de cadastro + benefícios de ser contratado
-
-### 6. **Estatísticas**
-Contadores animados com números importantes
-
-### 7. **Contato**
-Formulário e informações de contato
-
-### 8. **Footer**
-Links e informações da empresa
-
-## ⚙️ Personalização
-
-### Cores
-Edite as variáveis CSS em `styles.css`:
-```css
-:root {
-    --primary-dark: #0f1419;
-    --accent-blue: #0066ff;
-    --accent-cyan: #00d4ff;
-    /* ... mais variáveis */
-}
+```json
+[
+    {
+        "id": 1,
+        "nome": "Ana Silva",
+        "especialidade": "frontend",
+        "experiencia": "5+ anos",
+        "formacao": "Ciência da Computação (USP)",
+        "projetos": 35,
+        "bio": "...",
+        "tecnologias": ["React","Vue.js"]
+    }
+]
 ```
 
-### Textos
-Edite os textos diretamente em `index.html`
+Integração Frontend ↔ Backend
+-----------------------------
+O frontend `programadores.html` faz requisições à API para carregar dinamicamente os cards de talentos. A lógica principal encontra-se em `Frontend/programadores.js` — a página pode receber o parâmetro de query `?tipo=<especialidade>` para aplicar filtro automático.
 
-### Formulários
-Integre com seu backend editando a função `sendFormData()` em `script.js`
+Boas Práticas e Recomendação
+----------------------------
+- Use HTTPS em produção e defina CORS restrito (no código atual o CORS está aberto para desenvolvimento).
+- Proteja endpoints sensíveis com autenticação quando necessário.
+- Centralize dados dinâmicos em um banco de dados (SQLite/Postgres) em produção.
 
-### Animações
-Ajuste tempos e efeitos em `styles.css` e `script.js`
+Contribuição
+------------
+Contribuições são bem-vindas. Sugestões de fluxo:
 
-## 🔧 Desenvolvimentos Futuros
+1. Fork do repositório
+2. Crie uma branch com uma descrição clara (`feature/descricao` ou `fix/descricao`)
+3. Abra um Pull Request descrevendo as mudanças
 
-- [ ] Integração com backend (Node.js, Python, etc.)
-- [ ] Banco de dados de programadores
-- [ ] Sistema de autenticação
-- [ ] Dashboard para empresas
-- [ ] Perfil de desenvolvedores
-- [ ] Sistema de matches automáticos
-- [ ] Chat em tempo real
-- [ ] Pagamentos integrados
+Se possível, forneça passos para reproduzir e testes automatizados quando aplicável.
 
-## 📞 Dados de Contato (Editar)
+Licença
+-------
+Projeto livre para uso pessoal e comercial (sem cláusula de licença explícita no repositório). Se desejar adicionar uma licença formal, crie um arquivo `LICENSE` com a licença escolhida (ex.: MIT).
 
-Atualize os seguintes dados em `index.html`:
-- Telefone
-- Email
-- Localização
-- Links de redes sociais
-
-## 🎯 Funcionalidades JavaScript Detalhadas
-
-### 1. Validação de Formulários
-```javascript
-// Validação de email, URL e campos vazios
-// Highlight automático de campos com erro
-```
-
-### 2. Sistema de Notificações
-```javascript
-showNotification(message, type);
-// type: 'success', 'error', 'info'
-```
-
-### 3. Contador Animado
-```javascript
-// Anima números quando seção fica visível
-// Usa IntersectionObserver para eficiência
-```
-
-### 4. Menu Mobile
-```javascript
-// Abre/fecha com hamburger menu
-// Fecha automaticamente ao clicar em link
-```
-
-## 🌐 Deploy
-
-### GitHub Pages
-1. Faça push do código para GitHub
-2. Vá em Settings → Pages
-3. Selecione branch e pasta raiz
-4. Site estará disponível em `https://usuario.github.io/ProjetoTEC`
-
-### Vercel
-```bash
-npm install -g vercel
-vercel
-```
-
-### Netlify
-Arraste e solte a pasta na interface do Netlify
-
-## 📊 Performance
-
-- ✅ Lazy loading de imagens
-- ✅ CSS otimizado
-- ✅ JavaScript minificado
-- ✅ Smooth scrolling nativo
-- ✅ Hardware acceleration nas animações
-
-## 🔐 Segurança
-
-- Validação de entrada em formulários
-- HTTPS recomendado para deploy
-- Proteção contra XSS
-- CSRF tokens (implementar no backend)
-
-## 📝 Licença
-
-Livre para uso comercial e pessoal
-
-## 👨‍💻 Suporte
-
-Para dúvidas ou sugestões, entre em contato via formulário no site.
+Suporte
+-------
+Para dúvidas ou issues, abra um novo item em Issues no repositório ou use o formulário de contato presente no frontend.
 
 ---
 
-**Desenvolvido com ❤️ para TechConnect**
+**Documento gerado automaticamente para organizar e formalizar a documentação do projeto.**

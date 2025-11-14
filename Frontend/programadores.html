@@ -36,7 +36,68 @@
                 <p>Conheça os especialistas prontos para o seu projeto.</p>
             </div>
             
+            <!-- Filtro de Especialidade -->
+            <div class="filtro-container">
+                <label for="filtroEspecialidade" class="filtro-label">Filtrar por Especialidade:</label>
+                <select id="filtroEspecialidade" class="filtro-select">
+                    <option value="">Todas as Especialidades</option>
+                    <option value="frontend">Frontend Developer</option>
+                    <option value="backend">Backend Developer</option>
+                    <option value="fullstack">Full Stack Developer</option>
+                    <option value="mobile">Mobile Developer</option>
+                    <option value="devops">DevOps Engineer</option>
+                    <option value="ml">ML Engineer</option>
+                </select>
+            </div>
+
+            <div id="carregando" class="loading" style="display: none; text-align: center; padding: 40px;">
+                <i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: #0066ff;"></i>
+                <p>Carregando talentos...</p>
+            </div>
+
             <div class="servicos-grid" id="programadoresGrid">
+                <!-- Programadores serão carregados dinamicamente pela API -->
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                 <div class="footer-section">
+                    <h4>TechBridge</h4>
+                    <p>Conectando talento com oportunidade no universo da tecnologia</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Links Rápidos</h4>
+                    <ul>
+                        <li><a href="index.html#home">Início</a></li>
+                        <li><a href="index.html#servicos">Serviços</a></li>
+                        <li><a href="index.html#para-empresas">Para Empresas</a></li>
+                        <li><a href="index.html#para-devs">Para Devs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacidade</a></li>
+                        <li><a href="#">Termos de Uso</a></li>
+                        <li><a href="#">Cookies</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 TechBridge. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="notification" class="notification"></div>
+
+    <script src="script.js"></script>
+    <script src="programadores.js"></script>
+</body>
+</html>
 
                 <div class="servico-card" data-especialidade="frontend">
                     <div class="dev-header">
