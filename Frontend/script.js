@@ -62,11 +62,7 @@ async function buscarCNPJ() {
             removeHighlight(document.getElementById('empresaNome'));
         }
 
-<<<<<<< HEAD:script.js
-        // ✅ MARCA COMO VALIDADO
-=======
         // Marca como validado
->>>>>>> branch-Maihrendson:Frontend/script.js
         cnpjValidado = true;
 
     } catch (error) {
@@ -183,11 +179,9 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // 1. Verifica se é o form de empresa E se o CNPJ foi validado
         if (this === formEmpresa && !cnpjValidado) {
-<<<<<<< HEAD:script.js
-            showNotification('⚠️ Por favor, valide o CNPJ antes de enviar!', 'error');
-=======
+
             showNotification('Por favor, valide o CNPJ antes de enviar!', 'error');
->>>>>>> branch-Maihrendson:Frontend/script.js
+
             return; // Bloqueia o envio
         }
 
@@ -201,11 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (this.id === 'formEmpresa') {
                 // Se for, pega o tipo de dev e redireciona
                 const tipoDev = document.getElementById('empresaTipo').value;
-<<<<<<< HEAD:script.js
-                showNotification('✅ Formulário enviado! Mostrando talentos...', 'success');
-=======
                 showNotification('Formulário enviado! Mostrando talentos...', 'success');
->>>>>>> branch-Maihrendson:Frontend/script.js
                 
                 this.reset();
                 cnpjValidado = false; 
@@ -216,14 +206,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 }, 2000); // 2 segundos
 
             } else {
-                // 4. CORREÇÃO: Se for qualquer outro formulário (Devs ou Contato)
-                // Apenas mostramos a notificação e resetamos.
-                // O 'setTimeout' anterior estava causando o bug.
-<<<<<<< HEAD:script.js
-                showNotification('✅ Formulário enviado com sucesso! Entraremos em contato em breve.', 'success');
-=======
+
                 showNotification('Formulário enviado com sucesso! Entraremos em contato em breve.', 'success');
->>>>>>> branch-Maihrendson:Frontend/script.js
                 this.reset();
             }
 
@@ -497,11 +481,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Se nenhum filtro foi aplicado, a página simplesmente mostra todos os devs.
     }
 
-<<<<<<< HEAD:script.js
-    console.log('TechConnect - Site carregado com sucesso! 🚀');
-=======
     console.log('TechBridge - Site carregado com sucesso!');
->>>>>>> branch-Maihrendson:Frontend/script.js
 });
 
 // ========== ANALYTICS (Optional) ==========
@@ -534,11 +514,7 @@ function validateForm(form) {
     });
 
     if (!isValid) {
-<<<<<<< HEAD:script.js
-        showNotification('⚠️ Por favor, preencha todos os campos obrigatórios!', 'error');
-=======
         showNotification('Por favor, preencha todos os campos obrigatórios!', 'error');
->>>>>>> branch-Maihrendson:Frontend/script.js
     }
 
     return isValid;

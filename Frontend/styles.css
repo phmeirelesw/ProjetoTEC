@@ -999,11 +999,6 @@ body {
 #programadores .tech-list {
     padding: 1.5rem;
     padding-top: 1rem;
-<<<<<<< HEAD:styles.css
-    margin-bottom: 0; 
-}
-=======
-    margin-bottom: 1rem; 
 }
 
 /* ========== FILTRO DE ESPECIALIDADE ========== */
@@ -1111,4 +1106,3 @@ body {
         min-width: unset;
     }
 }
->>>>>>> branch-Maihrendson:Frontend/styles.css
