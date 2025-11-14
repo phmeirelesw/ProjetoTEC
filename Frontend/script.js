@@ -29,10 +29,40 @@ function removeHighlight(field) {
     field.style.boxShadow = '';
 }
 
+// Espera o DOM carregar para ligar os eventos
+document.addEventListener('DOMContentLoaded', () => {
+    const btnBuscarCNPJ = document.getElementById('btnBuscarCNPJ');
+    const formEmpresa = document.getElementById('formEmpresa');
+
+    if (btnBuscarCNPJ) {
+        btnBuscarCNPJ.addEventListener('click', async (event) => {
+            // Impede o submit do form/reload da página
+            event.preventDefault();
+            await buscarCNPJ();
+        });
+    }
+
+    // (Opcional) impedir submit se CNPJ não estiver validado
+    if (formEmpresa) {
+        formEmpresa.addEventListener('submit', (event) => {
+            if (!cnpjValidado) {
+                event.preventDefault();
+                showNotification('Valide o CNPJ antes de enviar o formulário.', 'error');
+            }
+        });
+    }
+});
+
 async function buscarCNPJ() {
     const cnpjInput = document.getElementById('empresaCNPJ');
     
-    const cnpjLimpo = cnpjInput.value.replace(/[\.\-\/]/g, '');
+    if (!cnpjInput) return;
+
+    // Remove pontos, traços e barra
+    const cnpjLimpo = cnpjInput.value.replace(/[.\-\/]/g, '').trim();
+
+    console.log('CNPJ digitado:', cnpjInput.value);
+    console.log('CNPJ limpo:', cnpjLimpo);
 
     if (cnpjLimpo.length !== 14) {
         showNotification('CNPJ inválido. Digite 14 números.', 'error');
@@ -44,35 +74,38 @@ async function buscarCNPJ() {
     showNotification('Buscando dados do CNPJ...', 'info');
 
     try {
-        const response = await fetch(`https://brasilapi.com.br/api/cnpj/v1/${cnpjLimpo}`);
+        const url = `https://brasilapi.com.br/api/cnpj/v1/${cnpjLimpo}`;
+        console.log('URL da requisição:', url);
+
+        const response = await fetch(url);
 
         if (!response.ok) {
+            // Aqui você consegue ver o status exato (404, 500 etc.)
+            console.error('Status da resposta:', response.status);
             throw new Error('CNPJ não encontrado ou inválido.');
         }
 
         const data = await response.json();
+        console.log('Resposta da API:', data);
 
-        if (document.getElementById('empresaNome')) {
-            document.getElementById('empresaNome').value = data.razao_social;
+        const nomeEmpresaInput = document.getElementById('empresaNome');
+        if (nomeEmpresaInput && data.razao_social) {
+            nomeEmpresaInput.value = data.razao_social;
+            removeHighlight(nomeEmpresaInput);
         }
 
         showNotification('Empresa encontrada e dados preenchidos!', 'success');
         removeHighlight(cnpjInput);
-        if (document.getElementById('empresaNome')) {
-            removeHighlight(document.getElementById('empresaNome'));
-        }
 
-        // Marca como validado
         cnpjValidado = true;
 
     } catch (error) {
         console.error('Erro ao buscar CNPJ:', error);
-        showNotification(error.message, 'error');
+        showNotification(error.message || 'Erro ao buscar CNPJ.', 'error');
         highlightField(cnpjInput);
         cnpjValidado = false;
     }
 }
-
 // ========== SMOOTH SCROLL & NAVBAR INTERACTION ==========
 document.addEventListener('DOMContentLoaded', () => {
     const hamburger = document.getElementById('hamburger');
